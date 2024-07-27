@@ -1,16 +1,31 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
+import { colors } from "../colors";
+
+const Container = styled.View``;
+
+const Logo = styled.Image``;
+
+const CreateAccount = styled.View``;
+const CreateAccountText = styled.Text``;
+
+const LoginLink = styled.Text``;
 
 export default function Welcome({ navigation }) {
+  const goToCreateAccount = () => navigation.navigate("CreateAccount");
+  const goToLogIn = () => navigation.navigate("LogIn");
   return (
-    <View>
-      <Text>Welcome</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("CreateAccount")}>
-        <Text>Go to Create Account</Text>
+    <Container>
+      <Logo resizeMode="contain" source={require("../assets/logo.png")} />
+      <TouchableOpacity onPress={goToCreateAccount}>
+        <CreateAccount>
+          <CreateAccountText>Create Account</CreateAccountText>
+        </CreateAccount>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("LogIn")}>
-        <Text>Go to Login</Text>
+      <TouchableOpacity onPress={goToLogIn}>
+        <LoginLink>Log in</LoginLink>
       </TouchableOpacity>
-    </View>
+    </Container>
   );
 }
