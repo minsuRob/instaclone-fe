@@ -5,9 +5,10 @@ import { colors } from "../colors";
 
 const Container = styled.View`
   flex: 1;
-  //background-color: black;
+  background-color: black;
   align-items: center;
   justify-content: center;
+  padding: 0px 40px;
 `;
 
 const Logo = styled.Image`
@@ -15,14 +16,19 @@ const Logo = styled.Image`
   height: 100px;
 `;
 
-const CreateAccount = styled.View`
+const CreateAccount = styled.TouchableOpacity`
   border-color: ${colors.blue};
-  padding: 7px 10px;
+  padding: 13px 10px;
+  margin-top: 20px;
+  width: 100%;
   border-radius: 3px;
+  /* opacity: ${(props) => (props.disabled ? "0.5" : "1")}; */
+  /* opacity: ${(props) => (props.disabled ? "0.5" : "1")}; */
 `;
 const CreateAccountText = styled.Text`
-  //color: white;
+  color: white;
   font-weight: 600;
+  text-align: center;
 `;
 
 const LoginLink = styled.Text`
@@ -36,12 +42,10 @@ export default function Welcome({ navigation }) {
   const goToLogIn = () => navigation.navigate("LogIn");
   return (
     <Container>
-      <Logo resizeMode="contain" source={require("../assets/logo.png")} />
-      <TouchableOpacity onPress={goToCreateAccount}>
-        <CreateAccount>
-          <CreateAccountText>Create Account</CreateAccountText>
-        </CreateAccount>
-      </TouchableOpacity>
+      <Logo resizeMode="cover" source={require("../assets/logo.png")} />
+      <CreateAccount disabled={false} onPress={goToCreateAccount}>
+        <CreateAccountText>Create New Account</CreateAccountText>
+      </CreateAccount>
       <TouchableOpacity onPress={goToLogIn}>
         <LoginLink>Log in</LoginLink>
       </TouchableOpacity>
