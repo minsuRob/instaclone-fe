@@ -3,14 +3,33 @@ import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { colors } from "../colors";
 
-const Container = styled.View``;
+const Container = styled.View`
+  flex: 1;
+  //background-color: black;
+  align-items: center;
+  justify-content: center;
+`;
 
-const Logo = styled.Image``;
+const Logo = styled.Image`
+  max-width: 50%;
+  height: 100px;
+`;
 
-const CreateAccount = styled.View``;
-const CreateAccountText = styled.Text``;
+const CreateAccount = styled.View`
+  border-color: ${colors.blue};
+  padding: 7px 10px;
+  border-radius: 3px;
+`;
+const CreateAccountText = styled.Text`
+  //color: white;
+  font-weight: 600;
+`;
 
-const LoginLink = styled.Text``;
+const LoginLink = styled.Text`
+  color: ${colors.blue};
+  font-weight: 600;
+  margin-top: 10px;
+`;
 
 export default function Welcome({ navigation }) {
   const goToCreateAccount = () => navigation.navigate("CreateAccount");
