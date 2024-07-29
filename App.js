@@ -5,12 +5,13 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import LoggedOutNav from "./navigators/LoggedOutNav.js";
 import { NavigationContainer } from "@react-navigation/native";
-import { ApolloProvider } from "@apollo/client";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
 
 import { Asset } from "expo-asset";
-import client from "./apollo.js";
+import client, { isLoggedInVar } from "./apollo.js";
 
 export default function App() {
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const [loading, setLoading] = useState(true);
   const onFinish = () => setLoading(false);
   const preload = () => {

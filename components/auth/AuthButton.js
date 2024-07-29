@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { colors } from "../../colors";
-import { ActivityIndicator } from "react-native-web";
+import { ActivityIndicator } from "react-native";
 
 const Button = styled.TouchableOpacity`
   background-color: ${colors.blue};

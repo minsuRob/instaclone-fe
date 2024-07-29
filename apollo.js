@@ -5,4 +5,5 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+export const isLoggedInVar = makeVar(false);
 export default client;
