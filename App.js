@@ -5,8 +5,10 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import LoggedOutNav from "./navigators/LoggedOutNav.js";
 import { NavigationContainer } from "@react-navigation/native";
+import { ApolloProvider } from "@apollo/client";
 
 import { Asset } from "expo-asset";
+import client from "./apollo.js";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -21,6 +23,7 @@ export default function App() {
     const imagePromises = imagesToLoad.map((image) => Asset.loadAsync(image));
     return Promise.all([...fontPromises, ...imagePromises]);
   };
+
   if (loading) {
     return (
       <AppLoading
@@ -31,8 +34,10 @@ export default function App() {
     );
   }
   return (
-    <NavigationContainer>
-      <LoggedOutNav />
-    </NavigationContainer>
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <LoggedOutNav />
+      </NavigationContainer>
+    </ApolloProvider>
   );
 }
