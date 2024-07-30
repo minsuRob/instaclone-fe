@@ -4,9 +4,48 @@ import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import { TextInput } from "../components/auth/AuthShared";
 import { useForm } from "react-hook-form";
+import { gql, useMutation } from "@apollo/client";
+const CREATE_ACCOUNT_MUTATION = gql`
+  mutation createAccount(
+    $firstName: String!
+    $lastname: String!
+    $username: String!
+    $email: String!
+    $password: String!
+  ) {
+    createAccount(
+      firstName: $firstName
+      lastname: $lastname
+      username: $username
+      email: $email
+      password: $password
+    ) {
+      ok
+      error
+    }
+  }
+`;
 
 export default function CreateAccount() {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, getValues } = useForm();
+  const onCompleted = (data) => {
+    const {
+      createAccount: { ok },
+    } = data;
+    const { username, password } = getValues();
+    if (ok) {
+      navigator.navigate("LogIn", {
+        username,
+        password,
+      });
+    }
+  };
+
+  const [createAccountMutation, { loading }] = useMutation(
+    CREATE_ACCOUNT_MUTATION,
+    { onCompleted }
+  );
+
   const lastNameRef = useRef();
   const usernameRef = useRef();
   const emailRef = useRef();
@@ -15,8 +54,14 @@ export default function CreateAccount() {
   const onNext = (nextOne) => {
     nextOne?.current?.focus();
   };
-  const onValid = () => {
-    console.log("valid");
+  const onValid = (data) => {
+    if (!loading) {
+      createAccountMutation({
+        variables: {
+          ...data,
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -74,7 +119,7 @@ export default function CreateAccount() {
       />
       <AuthButton
         text="Create Account"
-        loading
+        disabled={false}
         onPress={handleSubmit(onValid)}
       />
     </AuthLayout>
