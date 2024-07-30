@@ -8,14 +8,14 @@ import { gql, useMutation } from "@apollo/client";
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount(
     $firstName: String!
-    $lastname: String!
+    $lastName: String
     $username: String!
     $email: String!
     $password: String!
   ) {
     createAccount(
       firstName: $firstName
-      lastname: $lastname
+      lastName: $lastName
       username: $username
       email: $email
       password: $password
