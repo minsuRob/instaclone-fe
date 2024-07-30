@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Feed from "../screens/Feed";
 
 const Tabs = createBottomTabNavigator();
 
