@@ -26,25 +26,29 @@ const CREATE_ACCOUNT_MUTATION = gql`
   }
 `;
 
-export default function CreateAccount() {
+export default function CreateAccount({ navigation }) {
   const { register, handleSubmit, setValue, getValues } = useForm();
   const onCompleted = (data) => {
+    console.log("ok1");
     const {
       createAccount: { ok },
     } = data;
     const { username, password } = getValues();
     if (ok) {
-      navigator.navigate("LogIn", {
+      navigation.navigate("LogIn", {
         username,
         password,
       });
+      r;
     }
   };
 
-  const [createAccountMutation, { loading }] = useMutation(
+  const [createAccountMutation, { loading, error }] = useMutation(
     CREATE_ACCOUNT_MUTATION,
     { onCompleted }
   );
+
+  if (error) console.log(`${error.message}`);
 
   const lastNameRef = useRef();
   const usernameRef = useRef();
