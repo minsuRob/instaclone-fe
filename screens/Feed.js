@@ -31,8 +31,8 @@ export default function Feed({}) {
   console.log(data);
   const renderPhoto = ({ item: photo }) => {
     return (
-      <View>
-        <Text>{photo.caption}</Text>
+      <View style={{ flex: 1 }}>
+        <Text style={{ color: "white" }}>{photo.caption}</Text>
       </View>
     );
   };
