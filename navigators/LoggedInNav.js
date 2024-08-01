@@ -5,6 +5,8 @@ import Search from "../screens/Search";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import Camera from "../screens/Camera";
+import Me from "../screens/Me";
+import StackNavFactory from "../components/nav/StackNavFactory";
 
 import { Ionicons } from "@expo/vector-icons";
 import TabIcon, { View } from "../components/nav/TabIcon";
@@ -15,13 +17,14 @@ export default function LoggedInNav(params) {
     <Tabs.Navigator>
       <Tabs.Screen
         name="Feed"
-        component={Feed}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon icoName={"home"} color={color} size={focused} />
           ),
         }}
-      />
+      >
+        {() => <StackNavFactory screenName="Feed" />}
+      </Tabs.Screen>
       <Tabs.Screen
         name="Search"
         component={Search}
@@ -30,7 +33,9 @@ export default function LoggedInNav(params) {
             <TabIcon icoName={"search"} color={color} size={focused} />
           ),
         }}
-      />
+      >
+        {() => <StackNavFactory screenName="Search" />}
+      </Tabs.Screen>
       <Tabs.Screen
         name="camera"
         component={Camera}
@@ -39,7 +44,9 @@ export default function LoggedInNav(params) {
             <TabIcon icoName={"camera"} color={color} size={focused} />
           ),
         }}
-      />
+      >
+        {() => <StackNavFactory screenName="camera" />}
+      </Tabs.Screen>
       <Tabs.Screen
         name="Notifications"
         component={Notifications}
@@ -48,17 +55,21 @@ export default function LoggedInNav(params) {
             <TabIcon icoName={"heart"} color={color} size={focused} />
           ),
         }}
-      />
+      >
+        {() => <StackNavFactory screenName="Notifications" />}
+      </Tabs.Screen>
 
       <Tabs.Screen
-        name="Profile"
-        component={Profile}
+        name="Me"
+        component={Me}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon icoName={"person"} color={color} size={focused} />
           ),
         }}
-      />
+      >
+        {() => <StackNavFactory screenName="Me" />}
+      </Tabs.Screen>
     </Tabs.Navigator>
   );
 }

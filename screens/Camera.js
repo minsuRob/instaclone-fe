@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
-export default function Camera() {
+export default function Camera({ navigation }) {
   return (
     <View
       style={{
@@ -11,7 +11,9 @@ export default function Camera() {
         justifyContent: "center",
       }}
     >
-      <Text style={{ color: "white" }}>Camera</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+        <Text style={{ color: "white" }}>Profile</Text>
+      </TouchableOpacity>
     </View>
   );
 }
