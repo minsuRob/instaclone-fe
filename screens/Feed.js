@@ -3,8 +3,15 @@ import { Text, View } from "react-native";
 
 export default function Feed() {
   return (
-    <View>
-      <Text>Hello</Text>
+    <View
+      style={{
+        backgroundColor: "black",
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,
+      }}
+    >
+      <Text style={{ color: "white" }}>Feed1</Text>
     </View>
   );
 }
