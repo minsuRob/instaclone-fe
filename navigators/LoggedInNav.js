@@ -4,8 +4,10 @@ import Feed from "../screens/Feed";
 import Search from "../screens/Search";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
+import Camera from "../screens/Camera";
 
 import { Ionicons } from "@expo/vector-icons";
+import TabIcon, { View } from "../components/nav/TabIcon";
 const Tabs = createBottomTabNavigator();
 
 export default function LoggedInNav(params) {
@@ -16,7 +18,7 @@ export default function LoggedInNav(params) {
         component={Feed}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="home" color={color} size={focused ? 24 : 20} />
+            <TabIcon icoName={"home"} color={color} size={focused} />
           ),
         }}
       />
@@ -25,7 +27,16 @@ export default function LoggedInNav(params) {
         component={Search}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="search" color={color} size={focused ? 24 : 20} />
+            <TabIcon icoName={"search"} color={color} size={focused} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="camera"
+        component={Camera}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIcon icoName={"camera"} color={color} size={focused} />
           ),
         }}
       />
@@ -34,16 +45,17 @@ export default function LoggedInNav(params) {
         component={Notifications}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="heart" color={color} size={focused ? 24 : 20} />
+            <TabIcon icoName={"heart"} color={color} size={focused} />
           ),
         }}
       />
+
       <Tabs.Screen
         name="Profile"
         component={Profile}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="person" color={color} size={focused ? 22 : 18} />
+            <TabIcon icoName={"person"} color={color} size={focused} />
           ),
         }}
       />
