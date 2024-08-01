@@ -20,6 +20,33 @@ export default function LoggedInNav(params) {
           ),
         }}
       />
+      <Tabs.Screen
+        name="Search"
+        component={Search}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="search" color={color} size={focused ? 24 : 20} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Notifications"
+        component={Notifications}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="heart" color={color} size={focused ? 24 : 20} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="person" color={color} size={focused ? 22 : 18} />
+          ),
+        }}
+      />
     </Tabs.Navigator>
   );
 }
