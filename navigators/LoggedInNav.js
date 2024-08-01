@@ -6,7 +6,7 @@ import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import Camera from "../screens/Camera";
 import Me from "../screens/Me";
-import StackNavFactory from "../components/nav/StackNavFactory";
+import SharedStackNav from "./SharedStackNav";
 
 import { Ionicons } from "@expo/vector-icons";
 import TabIcon, { View } from "../components/nav/TabIcon";
@@ -23,7 +23,7 @@ export default function LoggedInNav(params) {
           ),
         }}
       >
-        {() => <StackNavFactory screenName="Feed" />}
+        {() => <SharedStackNav screenName="Feed" />}
       </Tabs.Screen>
       <Tabs.Screen
         name="Search"
@@ -33,7 +33,7 @@ export default function LoggedInNav(params) {
           ),
         }}
       >
-        {() => <StackNavFactory screenName="Search" />}
+        {() => <SharedStackNav screenName="Search" />}
       </Tabs.Screen>
       <Tabs.Screen
         name="camera"
@@ -43,7 +43,7 @@ export default function LoggedInNav(params) {
           ),
         }}
       >
-        {() => <StackNavFactory screenName="camera" />}
+        {() => <SharedStackNav screenName="camera" />}
       </Tabs.Screen>
       <Tabs.Screen
         name="Notifications"
@@ -53,7 +53,7 @@ export default function LoggedInNav(params) {
           ),
         }}
       >
-        {() => <StackNavFactory screenName="Notifications" />}
+        {() => <SharedStackNav screenName="Notifications" />}
       </Tabs.Screen>
 
       <Tabs.Screen
@@ -64,7 +64,7 @@ export default function LoggedInNav(params) {
           ),
         }}
       >
-        {() => <StackNavFactory screenName="Me" />}
+        {() => <SharedStackNav screenName="Me" />}
       </Tabs.Screen>
     </Tabs.Navigator>
   );
