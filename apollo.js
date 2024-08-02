@@ -7,7 +7,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setContext } from "@apollo/client/link/context";
 
-const URI = "https://purple-tires-itch.loca.lt/graphql";
+const URI = "https://c451-175-192-245-226.ngrok-free.app/graphql";
 
 const httpLink = createHttpLink({
   uri: URI,
