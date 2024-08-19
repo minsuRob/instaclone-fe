@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components/native";
-import { useWindowDimensions } from "react-native";
+import { Image, useWindowDimensions } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 const Container = styled.View``;
-const Header = styled.View``;
-const UserAvatar = styled.Image``;
+const Header = styled.View`
+  padding: 10px;
+  align-items: center;
+  flex-direction: row;
+`;
+const UserAvatar = styled.Image`
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  border-radius: 12.5px;
+`;
 const Username = styled.Text`
   color: white;
+  font-weight: 600;
 `;
 const File = styled.Image``;
 const Actions = styled.View``;
@@ -30,20 +42,39 @@ const imgfile = [
   "https://image.aladin.co.kr/product/29037/28/letslook/K882836839_t13.jpg",
   "https://blog.kakaocdn.net/dn/ddqGtf/btrE8NOhthb/Hn6hui0eNIkTU9fah9lurk/img.png",
 ];
+
+const avatarImg = [
+  "https://pbs.twimg.com/profile_images/1499021634715668480/FrKd2k3S_400x400.jpg",
+  "https://i.pinimg.com/originals/77/09/3c/77093cd02b29fec0c2553adb65deec9a.jpg",
+  "https://image.fmkorea.com/files/attach/new4/20240813/7357635763_4180795_a9e5433fc391a32fc367141f1ab8f69d.jpeg",
+];
+
 function Photo({ id, user, caption, file, isLiked, likes }) {
+  const resultimg = imgfile[getRandom(0, 5)];
+  const resultAvatar = avatarImg[getRandom(0, 2)];
+  const navigation = useNavigation();
   const { width, height } = useWindowDimensions();
+
+  const [imageHeight, setImageHeight] = useState(height - 450);
+  useEffect(() => {
+    Image.getSize(resultimg, (width, height) => {
+      setImageHeight(height / 3);
+    });
+  }, [resultimg]);
+
   return (
     <Container>
-      <Header>
-        <UserAvatar />
+      <Header onPress={() => navigation.navigate("Profile")}>
+        <UserAvatar resizeMode="cover" source={{ uri: resultAvatar }} />
         <Username>{user.username}</Username>
       </Header>
       <File
+        resizeMode="cover"
         style={{
           width,
-          height: height - 500,
+          height: imageHeight,
         }}
-        source={{ uri: imgfile[getRandom(0, 5)] }}
+        source={{ uri: resultimg }}
       />
       <Actions>
         <Action />
@@ -51,7 +82,9 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
       </Actions>
       <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
       <Caption>
-        <Username>{user.username}</Username>
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <Username>{user.username}</Username>
+        </TouchableOpacity>
         <CaptionText>{caption}</CaptionText>
       </Caption>
     </Container>
