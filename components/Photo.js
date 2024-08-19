@@ -105,7 +105,9 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
             <Ionicons name="chatbubble-outline" color="white" size={22} />
           </Action>
         </Actions>
-        <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
+        <TouchableOpacity onPress={() => navigation.navigate("Likes")}>
+          <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
+        </TouchableOpacity>
         <Caption>
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
             <Username>{user.username}</Username>
