@@ -28,8 +28,8 @@ import Photo from "../components/Photo";
 //   ${COMMENT_FRAGMENT}
 // `;
 const FEED_QUERY = gql`
-  query seeFeed {
-    seeFeed {
+  query seeFeed($offset: Int!) {
+    seeFeed(offset: $offset) {
       caption
       id
       likes
@@ -42,7 +42,11 @@ const FEED_QUERY = gql`
   }
 `;
 export default function Feed({}) {
-  const { data, loading, error, refetch } = useQuery(FEED_QUERY);
+  const { data, loading, error, refetch, fetchMore } = useQuery(FEED_QUERY, {
+    variables: {
+      offset: 0,
+    },
+  });
   const renderPhoto = ({ item: photo }) => {
     // console.log(photo);
     return <Photo {...photo} />;
@@ -58,6 +62,10 @@ export default function Feed({}) {
   return (
     <ScreenLayout>
       <FlatList
+        onEndReachedThreshold={0.05}
+        onEndReached={() =>
+          fetchMore({ variables: { offset: data?.seeFeed?.length } })
+        }
         refreshing={refreshing}
         onRefresh={refresh}
         style={{ width: "100%" }}
