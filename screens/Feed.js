@@ -6,6 +6,7 @@ import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from "../fragments";
 import {} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import ScreenLayout from "../components/ScreenLayout";
+import Photo from "../components/Photo";
 
 // const FEED_QUERY = gql`
 //   query seeFeed {
@@ -33,23 +34,25 @@ const FEED_QUERY = gql`
       id
       likes
       isMine
+      isLiked
+      user {
+        username
+      }
     }
   }
 `;
 export default function Feed({}) {
   const { data, loading, error } = useQuery(FEED_QUERY);
-  console.log(data);
   const renderPhoto = ({ item: photo }) => {
-    return (
-      <View style={{ flex: 1 }}>
-        <Text style={{ color: "white" }}>{photo.caption}</Text>
-      </View>
-    );
+    // console.log(photo);
+    return <Photo {...photo} />;
   };
 
   return (
     <ScreenLayout>
       <FlatList
+        style={{ width: "100%" }}
+        showsVerticalScrollIndicator={false}
         data={data?.seeFeed}
         keyExtractor={(photo) => "" + photo.id}
         renderItem={renderPhoto}
