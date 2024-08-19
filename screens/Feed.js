@@ -42,15 +42,24 @@ const FEED_QUERY = gql`
   }
 `;
 export default function Feed({}) {
-  const { data, loading, error } = useQuery(FEED_QUERY);
+  const { data, loading, error, refetch } = useQuery(FEED_QUERY);
   const renderPhoto = ({ item: photo }) => {
     // console.log(photo);
     return <Photo {...photo} />;
   };
 
+  const refresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
+  const [refreshing, setRefreshing] = React.useState(false);
+
   return (
     <ScreenLayout>
       <FlatList
+        refreshing={refreshing}
+        onRefresh={refresh}
         style={{ width: "100%" }}
         showsVerticalScrollIndicator={false}
         data={data?.seeFeed}
