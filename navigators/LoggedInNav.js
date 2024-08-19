@@ -18,6 +18,7 @@ export default function LoggedInNav(params) {
       <Tabs.Screen
         name="Feed"
         options={{
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon icoName={"home"} color={color} size={focused} />
           ),
