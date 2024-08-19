@@ -62,7 +62,7 @@ export default function Feed({}) {
   return (
     <ScreenLayout>
       <FlatList
-        onEndReachedThreshold={0.05}
+        onEndReachedThreshold={0.02}
         onEndReached={() =>
           fetchMore({ variables: { offset: data?.seeFeed?.length } })
         }

@@ -5,7 +5,16 @@ import { Image, useWindowDimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { gql, useMutation } from "@apollo/client";
 
+const TOGGLE_LIKE_MUTATION = gql`
+  mutation toggleLike($id: Int!) {
+    toggleLike(id: $id) {
+      ok
+      error
+    }
+  }
+`;
 const Container = styled.View``;
 const Header = styled.View`
   padding: 10px;
@@ -57,6 +66,7 @@ const imgfile = [
   "https://image.aladin.co.kr/product/29037/28/letslook/K882836839_t13.jpg",
   "https://image.aladin.co.kr/product/29037/28/letslook/K882836839_t13.jpg",
   "https://blog.kakaocdn.net/dn/ddqGtf/btrE8NOhthb/Hn6hui0eNIkTU9fah9lurk/img.png",
+  "https://i.ytimg.com/vi/noVk79J7_Jc/maxresdefault.jpg",
 ];
 
 const avatarImg = [
@@ -73,11 +83,44 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
 
   const [imageHeight, setImageHeight] = useState(height - 450);
   useEffect(() => {
-    Image.getSize(resultimg, (width, height) => {
+    Image.getSize(imgfile[id], (width, height) => {
       setImageHeight(height / 3);
     });
   }, [resultimg]);
 
+  const updateToggleLike = (cache, result) => {
+    console.log(result);
+    const {
+      data: {
+        toggleLike: { ok },
+      },
+    } = result;
+
+    if (ok) {
+      const photoId = `Photo:${id}`;
+      cache.modify({
+        id: photoId,
+        fields: {
+          isLiked(prev) {
+            return !prev;
+          },
+          likes(prev) {
+            if (isLiked) {
+              return prev - 1;
+            }
+            return prev + 1;
+          },
+        },
+      });
+    }
+  };
+
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE_MUTATION, {
+    variables: {
+      id,
+    },
+    update: updateToggleLike,
+  });
   return (
     <Container>
       <Header onPress={() => navigation.navigate("Profile")}>
@@ -90,11 +133,11 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
           width,
           height: imageHeight,
         }}
-        source={{ uri: resultimg }}
+        source={{ uri: imgfile[id] }}
       />
       <ExtraContainer>
         <Actions>
-          <Action>
+          <Action onPress={toggleLikeMutation}>
             <Ionicons
               name={isLiked ? "heart" : "heart-outline"}
               color={isLiked ? "tomato" : "white"}
