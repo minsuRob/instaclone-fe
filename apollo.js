@@ -6,6 +6,7 @@ import {
 } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setContext } from "@apollo/client/link/context";
+import { offsetLimitPagination } from "@apollo/client/utilities";
 
 const URI = "https://c451-175-192-245-226.ngrok-free.app/graphql";
 
