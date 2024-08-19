@@ -7,27 +7,37 @@ import {} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import ScreenLayout from "../components/ScreenLayout";
 
+// const FEED_QUERY = gql`
+//   query seeFeed {
+//     seeFeed {
+//       ...PhotoFragment
+//       user {
+//         username
+//         avatar
+//       }
+//       caption
+//       comments {
+//         ...CommentFragment
+//       }
+//       createdAt
+//       isMine
+//     }
+//   }
+//   ${PHOTO_FRAGMENT}
+//   ${COMMENT_FRAGMENT}
+// `;
 const FEED_QUERY = gql`
   query seeFeed {
     seeFeed {
-      ...PhotoFragment
-      user {
-        username
-        avatar
-      }
       caption
-      comments {
-        ...CommentFragment
-      }
-      createdAt
+      id
+      likes
       isMine
     }
   }
-  ${PHOTO_FRAGMENT}
-  ${COMMENT_FRAGMENT}
 `;
 export default function Feed({}) {
-  const { data, loading } = useQuery(FEED_QUERY);
+  const { data, loading, error } = useQuery(FEED_QUERY);
   console.log(data);
   const renderPhoto = ({ item: photo }) => {
     return (
