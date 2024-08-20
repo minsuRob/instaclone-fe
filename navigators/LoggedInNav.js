@@ -29,6 +29,7 @@ export default function LoggedInNav(params) {
       <Tabs.Screen
         name="Search"
         options={{
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => (
             <TabIcon icoName={"search"} color={color} size={focused} />
           ),
